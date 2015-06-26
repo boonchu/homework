@@ -1,6 +1,7 @@
 ###### Puppet Homework ######
 
 * How to start with Puppet Vagrant environment 
+  url: https://doauto.wordpress.com/2013/06/22/how-to-change-a-file-using-puppet/
 
 * start with magmum
 
