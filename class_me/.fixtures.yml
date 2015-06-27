@@ -1,0 +1,15 @@
+# For puppetlabs_spec_helper documentation - see http://github.com/puppetlabs/puppetlabs_spec_helper
+
+fixtures:
+  repositories:
+    ntp: 
+      repo: 'https://github.com/puppetlabs/puppetlabs-ntp.git'
+      ref: 'master'
+    stdlib:
+      repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
+      ref: 'master'      
+ 
+  symlinks:
+    class_me/files: '../../../../files'
+    class_me/manifests: '../../../../manifests'
+    class_me/templates: '../../../../templates'
