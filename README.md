@@ -14,11 +14,24 @@ $ cd "[MODULE NAME]"
 ```
 $ bundle exec rake spec_clean 
 $ bundle exec rake lint
-$ bundle exec rake spec
+$ bundle exec rake spec (rake spec_standalone)
 $ vagrant up
 $ vagrant provision (if needed)
 ```
 
+* reinstall gem bundler
+   - http://stackoverflow.com/questions/12188833/how-to-reinstall-a-gem-using-bundler
+
 * puppet practices
+   - https://wikitech.wikimedia.org/wiki/Puppet_coding
    - http://blog.mayflower.de/4573-The-Puppet-Anchor-Pattern-in-Practice.html
    - http://elatov.github.io/2014/09/writing-better-puppet-modules/
+
+* puppet variable scope
+   - https://docs.puppetlabs.com/guides/scope_and_puppet.html
+
+* puppet type reference
+   - https://docs.puppetlabs.com/references/latest/type.html
+
+* server spec test
+   - http://serverspec.org/
