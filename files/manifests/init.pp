@@ -26,7 +26,7 @@ class files (
 
     # template
     $redis_conf   = 'files/redis.conf.erb',
-    $options_hash         = { },
+    $options_hash = { },
 
 ) inherits files::params {
 
