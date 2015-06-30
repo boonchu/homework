@@ -19,6 +19,9 @@ $ vagrant up
 $ vagrant provision (if needed)
 ```
 
+* language style guide
+   - http://docs.puppetlabs.com/guides/style_guide.html
+
 * reinstall gem bundler
    - http://stackoverflow.com/questions/12188833/how-to-reinstall-a-gem-using-bundler
 
