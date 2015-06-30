@@ -1,6 +1,6 @@
 ---
-redis::config_file_template: 'files/redis.conf.erb'
-redis::options_hash:
+files::config_file_template: 'files/redis.conf.erb'
+files::options_hash:
   port: '12312'
   bind: '0.0.0.0'
   masterip: '10.0.42.50'
