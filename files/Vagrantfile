@@ -17,6 +17,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     puppet.manifest_file  = "init.pp"
     puppet.options = "--debug"
     puppet.options = "--parser future"
+    puppet.hiera_config_path = 'hiera/hiera.yaml'    
   end
 
 end
