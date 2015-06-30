@@ -66,3 +66,29 @@ files/.fixtures.yml
 +    }
 +
 ```
+
+###### Puppet Hiera Testing ######
+  * https://docs.puppetlabs.com/references/latest/function.html
+
+```
++    # heira params
++    $snmp_stats     = $files::params::snmp_stats,
++    $memcache_host  = $files::params::memcache_host,
++    $memcache_port  = $files::params::memcache_port,
++    $memcache_stats = $files::params::memcache_stats,
++
+
++    # get hiera parameters and throw into this line
++    notify {"[DEBUG] setup multiple files :: ${snmp_stats}": withpath => true}
++    notify {"[DEBUG] setup multiple files :: ${memcache_host}": withpath => true}
++    notify {"[DEBUG] setup multiple files :: ${memcache_port}": withpath => true}
++    notify {"[DEBUG] setup multiple files :: ${memcache_stats}": withpath => true}
++
+
++    # hiera params into class "files"
++    $snmp_stats     = hiera_hash('snmp_stats', {})
++    $memcache_stats = hiera_array('memcache_stats', [])
++    $memcache_host  = hiera('memcache_host', 'localhost')
++    $memcache_port  = hiera('memcache_port', '11212')
++
+```

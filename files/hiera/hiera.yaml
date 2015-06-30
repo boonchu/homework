@@ -6,6 +6,6 @@
 
 :hierarchy:
   - "redis.local"
-  - default
+  - "info.local"
 
 :logger: console
