@@ -43,5 +43,3 @@ pkg
 # except this module's fixtures directory
 spec/fixtures/modules/*
 !spec/fixtures/modules/files
-
-vendor/*
