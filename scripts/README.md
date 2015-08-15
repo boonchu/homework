@@ -1,6 +1,8 @@
-##### Puppet script
+##### Puppet scripts
 
-* create Gemfile
+* git clone 
+* review Gemfile 
+   - modify code to have --parser future if run puppet version 3.7.x
 * bundle install
 
 ##### Samples

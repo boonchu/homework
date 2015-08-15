@@ -1,4 +1,5 @@
-#!/usr/bin/env puppet apply --parser future
+#!/usr/bin/env puppet apply 
+#  --parser future (if running 3.7.x)
 #
 #  https://docs.puppetlabs.com/puppet/latest/reference/lang_iteration.html
 
