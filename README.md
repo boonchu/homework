@@ -2,6 +2,12 @@
 
 * How to start with Puppet Vagrant environment 
 
+* download vagrant box image
+
+```
+$ vagrant box add centos7-puppet3.8.1 https://github.com/tommy-muehle/puppet-vagrant-boxes/releases/download/1.1.0/centos-7.0-x86_64.box
+```
+
 * start with magmum
 
 ```

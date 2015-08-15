@@ -15,6 +15,6 @@ class class_me (
 
 ) {
 
-  Class{ 'Ntp::Install' } -> Class{ 'Ntp::Config' }  ~> Class{ 'Ntp::Service' } -> Class['Ntp'] 
+  include ntp
 
 }
