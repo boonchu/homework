@@ -1,4 +1,4 @@
-#!/usr/bin/env puppet apply
+#!/usr/bin/env puppet apply --parser future
 # 
 # templating - https://docs.puppetlabs.com/guides/templating.html
 # module path - https://docs.puppetlabs.com/puppet/3.5/reference/dirs_modulepath.html
