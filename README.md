@@ -2,11 +2,23 @@
 
 * How to start with Puppet Vagrant environment 
 
+* install latest vagrant
+
 * download vagrant box image
 
 ```
 $ vagrant box add centos7-puppet3.8.1 https://github.com/tommy-muehle/puppet-vagrant-boxes/releases/download/1.1.0/centos-7.0-x86_64.box
 ```
+
+* prepare environment for vagrant
+
+```
+$ curl -sSL https://get.rvm.io | bash -s stable --ruby
+$ rvm reload
+$ echo rvm_auto_reload_flag=1 >> ~/.rvmrc
+```
+
+* install magnum
 
 * start with magmum
 
@@ -18,6 +30,7 @@ $ cd "[MODULE NAME]"
 * start with init.pp, see from example files
 
 ```
+$ bundle install --no-deployment && bundle update && bundle install --deployment
 $ bundle exec rake spec_clean 
 $ bundle exec rake lint
 $ bundle exec rake spec (rake spec_standalone)
