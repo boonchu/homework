@@ -15,6 +15,18 @@
 
 ```
 * puppet-lint --no-autoloader_layout-check array.pp
-* puppet parser --parser future validate array.pp
+* puppet parser [--parser future] validate array.pp
 * run ./array.pp
+```
+
+```
+* puppet-lint --no-autoloader_layout-check reduce.pp
+* puppet parser [--parser future] validate reduce.pp
+* run ./reduce.pp
+```
+
+```
+* puppet module install puppetlabs-ntp
+* puppet module list
+* puppet config print modulepath
 ```
