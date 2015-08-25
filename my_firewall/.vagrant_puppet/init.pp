@@ -6,8 +6,8 @@
 include epel
 include my_firewall
 
+# https://github.com/puppetlabs/puppetlabs-apache
 class { 'apache': }
-
 apache::vhost { 'server3.cracker.org':
   port                        => '80',
   docroot                     => '/var/www/docroot',
