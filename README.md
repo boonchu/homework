@@ -56,6 +56,13 @@ default => ruby-2.1.1
 
 ```
 
+* gem ?
+
+```
+$ gem update CFPropertyList (taking latest?)
+$ gem install CFPropertyList -v 2.2.6 (try specific version of module?)
+```
+
 * install magnum
 
 ```

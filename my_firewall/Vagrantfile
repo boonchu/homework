@@ -1,0 +1,54 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# https://github.com/Varying-Vagrant-Vagrants/VVV/blob/develop/Vagrantfile
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.require_version ">= 1.6.5"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # Using Puppet Labs official vagrant boxes, from: https://vagrantcloud.com/puppetlabs
+  config.vm.box = "centos7-puppet3.8.1"
+
+  # Virtualbox provider
+  config.vm.provider :virtualbox do |v, override|
+    override.vm.box = "centos7-puppet3.8.1"
+  end
+
+  vagrant_version = Vagrant::VERSION.sub(/^v/, '')
+  if vagrant_version >= "1.6.0"
+    config.vm.provision :shell, :path => "./.vagrant_puppet/init.sh", run: "always"
+  end
+  #config.vm.provision "fix-no-tty", type: "shell" do |s|
+  #  s.privileged = false
+  #  s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
+  #end
+
+  config.ssh.forward_agent = true
+  config.vm.hostname = 'centos7.vagrant.local'
+  config.vm.network :private_network, ip: "192.168.10.100"
+  config.vm.network :public_network
+  # Port forwarding is a first step to allowing access to outside networks, though additional
+  # configuration will likely be necessary on our host machine or router so that outside
+  # requests will be forwarded from 80 -> 80 -> 80.
+  config.vm.network "forwarded_port", guest: 80, host: 80
+
+  config.vm.synced_folder "www/", "/srv/www/", :owner => "httpd", :mount_options => [ "dmode=775", "fmode=774" ]
+
+  # Configurations from 1.0.x can be placed in Vagrant 1.1.x specs like the following.
+  config.vm.provider :virtualbox do |v|
+    v.customize ["modifyvm", :id, "--memory", 1024]
+    v.customize ["modifyvm", :id, "--cpus", 1]
+    v.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    v.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    vvv_pwd = Dir.pwd
+    v.name = File.basename(vvv_pwd)
+  end
+
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "./.vagrant_puppet"
+    puppet.manifest_file  = "init.pp"
+    puppet.options = "--verbose"
+  end
+
+end

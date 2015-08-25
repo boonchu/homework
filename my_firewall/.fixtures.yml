@@ -1,0 +1,13 @@
+# For puppetlabs_spec_helper documentation - see http://github.com/puppetlabs/puppetlabs_spec_helper
+
+fixtures:
+  repositories:
+    epel: 'https://github.com/stahnma/puppet-module-epel.git'
+    stdlib: 'git://github.com/puppetlabs/puppetlabs-stdlib'
+    firewall: 'https://github.com/puppetlabs/puppetlabs-firewall.git'
+    apache: 'https://github.com/puppetlabs/puppetlabs-apache.git'
+    concat: 'https://github.com/puppetlabs/puppetlabs-concat.git'
+  symlinks:
+    my_firewall/files: '../../../../files'
+    my_firewall/manifests: '../../../../manifests'
+    my_firewall/templates: '../../../../templates'
