@@ -10,7 +10,7 @@ class { 'apache': }
 
 apache::vhost { 'www.cracker.org':
   port                        => '80',
-  docroot                     => '/srv/www/pythonapp',
+  docroot                     => '/var/www/docroot',
   wsgi_application_group      => '%{GLOBAL}',
   wsgi_daemon_process         => 'wsgi',
   wsgi_daemon_process_options => {
@@ -18,11 +18,11 @@ apache::vhost { 'www.cracker.org':
     threads      => '15',
     display-name => '%{GROUP}',
   },
-  wsgi_import_script          => '/srv/www/demo.wsgi',
+  wsgi_import_script          => '/var/www/cgi-bin/hello.wsgi',
   wsgi_import_script_options  => {
     process-group     => 'wsgi',
     application-group => '%{GLOBAL}',
   },
   wsgi_process_group          => 'wsgi',
-  wsgi_script_aliases         => { '/' => '/var/www/demo.wsgi' },
+  wsgi_script_aliases         => { '/hello' => '/var/www/cgi-bin/hello.wsgi' },
 }

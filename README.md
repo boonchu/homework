@@ -1,5 +1,11 @@
 ###### Puppet Homework ######
 
+* Use Vagrant with Libvirt
+  * https://github.com/pradels/vagrant-libvirt
+
+* Sample of Vagrant 
+  * https://github.com/Varying-Vagrant-Vagrants/VVV
+
 * How to start with Puppet Vagrant environment 
 
 * install latest vagrant
@@ -20,6 +26,12 @@ $ echo rvm_auto_reload_flag=1 >> ~/.rvmrc
 * update shell rc like .bashrc or .zshrc
 PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH" # Add RVM to PATH for scripting
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+
+* set MAC development environment
+  - http://stackoverflow.com/questions/23429145/error-failed-to-build-gem-native-extension-ruby-extconf-rb-mac-osx
+
+$ sudo xcode-select --install
+$ export ARCHFLAGS="-Wno-error=unused-command-line-argument-hard-error-in-future"
 
 ```
 

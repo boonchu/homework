@@ -24,16 +24,25 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #  s.inline = "sudo sed -i '/tty/!s/mesg n/tty -s \\&\\& mesg n/' /root/.profile"
   #end
 
+  # http://superuser.com/questions/752954/need-to-do-bridged-adapter-only-in-vagrant-no-nat?rq=1
+  # public network setup
   config.ssh.forward_agent = true
   config.vm.hostname = 'centos7.vagrant.local'
-  config.vm.network :private_network, ip: "192.168.10.100"
-  config.vm.network :public_network
+  #config.vm.network :private_network, ip: "192.168.10.100"
+
+  # This is Mac OS X Centric... find an interface to use for bridging
+  # Vagrant will ask the user to select if none of these patterns match
+  preferred_interfaces = ['Ethernet', 'eth0', 'Wi-Fi', 'Thunderbolt 1', 'Thunderbolt 2']
+  host_interfaces = %x( VBoxManage list bridgedifs | grep ^Name ).gsub(/Name:\s+/, '').split("\n")
+  $network_interface_to_use = preferred_interfaces.map{ |pi| host_interfaces.find { |vm| vm =~ /#{Regexp.quote(pi)}/ } }.compact[0]
+  config.vm.network :public_network, :bridge => $network_interface_to_use, :ip => '192.168.1.170'
+
   # Port forwarding is a first step to allowing access to outside networks, though additional
   # configuration will likely be necessary on our host machine or router so that outside
   # requests will be forwarded from 80 -> 80 -> 80.
   config.vm.network "forwarded_port", guest: 80, host: 80
 
-  config.vm.synced_folder "www/", "/srv/www/", :owner => "httpd", :mount_options => [ "dmode=775", "fmode=774" ]
+  config.vm.synced_folder "www/", "/var/www/", :owner => "root", :mount_options => [ "dmode=775", "fmode=774" ]
 
   # Configurations from 1.0.x can be placed in Vagrant 1.1.x specs like the following.
   config.vm.provider :virtualbox do |v|
