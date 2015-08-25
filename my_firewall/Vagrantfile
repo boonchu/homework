@@ -54,10 +54,22 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     v.name = File.basename(vvv_pwd)
   end
 
+  # http://serverfault.com/questions/581664/how-to-set-up-datadir-when-using-hiera-with-puppet-and-vagrant
+  # Include Hiera Data Directory (no automatic option for this)
+  config.vm.synced_folder "hiera/", "/home/vagrant/hiera/"
+
   config.vm.provision :puppet do |puppet|
     puppet.manifests_path = "./.vagrant_puppet"
     puppet.manifest_file  = "init.pp"
-    puppet.options = "--verbose"
+    puppet.options = "--verbose --parser future"
+
+    puppet.hiera_config_path = './hiera.yaml'
+
+    puppet.facter = {
+        "vagrant" => "1",
+        "server" => "centos7.vagrant.local",
+    }
+
   end
 
 end

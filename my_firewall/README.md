@@ -16,6 +16,34 @@ Use Case
 config.vm.network :public_network, :bridge => $network_interface_to_use, :ip => '192.168.1.103'
 ```
 
+Hiera
+=====
+
+```
+master ● ● λ tree hiera
+hiera
+├── common.yaml
+└── nodes
+    └── centos7.vagrant.local.yaml
+
+master ● ● λ cat hiera.yaml
+---
+:backends:
+  - yaml
+:yaml:
+  :datadir: "./hiera"
+:hierarchy:
+  - "nodes/%{::hostname}"
+  - common
+
+master ● ● λ cat hiera/common.yaml
+---
+myvar: 'test'
+
+master ● ● λ hiera -c hiera.yaml myvar
+test
+```
+
 How to run
 ==========
 

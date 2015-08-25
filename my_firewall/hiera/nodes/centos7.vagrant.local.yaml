@@ -1,0 +1,8 @@
+---
+firewall:
+  '200 es/nginx proxy tcp':
+    action: accept
+    proto: tcp
+    dport:
+      - 443
+      - 8080

@@ -36,4 +36,7 @@ class my_firewall::pre {
     action => accept,
   }
 
+  # load from hiera
+  create_resources('firewall', hiera_hash('firewall', {}))
+
 }
