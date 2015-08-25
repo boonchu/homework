@@ -37,6 +37,9 @@
 #
 class my_firewall {
 
+  # Include the firewall class to ensure the correct packages are installed.
+  class { 'firewall': }
+  ->
   # set up a metatype to purge unmanaged firewall resources
   # clear any existing rules and make sure that only rules defined in Puppet 
   # exist on the machine
@@ -44,15 +47,11 @@ class my_firewall {
     purge => true,
   }
 
-  # Include the firewall class to ensure the correct packages are installed.
-  class { 'firewall': }
-
   # ensure that the pre and post classes are run in the correct order 
   Firewall {
     before  => Class['my_firewall::post'],
     require => Class['my_firewall::pre'],
   }
-
   #  declare the my_fw::pre and my_fw::post classes to satisfy dependencies
   class { ['my_firewall::pre', 'my_firewall::post']: }
 

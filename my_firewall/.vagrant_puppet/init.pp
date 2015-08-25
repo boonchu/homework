@@ -8,15 +8,15 @@ include my_firewall
 
 class { 'apache': }
 
-apache::vhost { 'www.cracker.org':
+apache::vhost { 'server3.cracker.org':
   port                        => '80',
   docroot                     => '/var/www/docroot',
   wsgi_application_group      => '%{GLOBAL}',
   wsgi_daemon_process         => 'wsgi',
   wsgi_daemon_process_options => {
-    processes    => '2',
-    threads      => '15',
-    display-name => '%{GROUP}',
+    processes         => '2',
+    threads           => '15',
+    display-name      => '%{GROUP}',
   },
   wsgi_import_script          => '/var/www/cgi-bin/hello.wsgi',
   wsgi_import_script_options  => {
@@ -24,5 +24,7 @@ apache::vhost { 'www.cracker.org':
     application-group => '%{GLOBAL}',
   },
   wsgi_process_group          => 'wsgi',
-  wsgi_script_aliases         => { '/hello' => '/var/www/cgi-bin/hello.wsgi' },
+  wsgi_script_aliases         => {
+    '/hello'          => '/var/www/cgi-bin/hello.wsgi',
+  },
 }

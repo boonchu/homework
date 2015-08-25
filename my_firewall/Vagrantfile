@@ -35,7 +35,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   preferred_interfaces = ['Ethernet', 'eth0', 'Wi-Fi', 'Thunderbolt 1', 'Thunderbolt 2']
   host_interfaces = %x( VBoxManage list bridgedifs | grep ^Name ).gsub(/Name:\s+/, '').split("\n")
   $network_interface_to_use = preferred_interfaces.map{ |pi| host_interfaces.find { |vm| vm =~ /#{Regexp.quote(pi)}/ } }.compact[0]
-  config.vm.network :public_network, :bridge => $network_interface_to_use, :ip => '192.168.1.170'
+  config.vm.network :public_network, :bridge => $network_interface_to_use, :ip => '192.168.1.103'
 
   # Port forwarding is a first step to allowing access to outside networks, though additional
   # configuration will likely be necessary on our host machine or router so that outside
