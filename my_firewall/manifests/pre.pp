@@ -1,3 +1,4 @@
+# class: pre install firewall rule
 class my_firewall::pre {
 
   Firewall {

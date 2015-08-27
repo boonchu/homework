@@ -1,3 +1,4 @@
+# class: apply post firewall rule
 class my_firewall::post {
 
   firewall { '999 drop all':

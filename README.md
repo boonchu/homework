@@ -101,6 +101,9 @@ $ vagrant up
 $ vagrant provision (if needed)
 ```
 
+* Add Hiera to Vagrantfile
+   - https://github.com/gposton/vagrant-hiera
+
 * language style guide
    - http://docs.puppetlabs.com/guides/style_guide.html
 
