@@ -26,5 +26,6 @@ apache::vhost { 'server3.cracker.org':
   wsgi_process_group          => 'wsgi',
   wsgi_script_aliases         => {
     '/hello'          => '/var/www/cgi-bin/hello.wsgi',
+    '/info'           => '/var/www/cgi-bin/info.wsgi',
   },
 }

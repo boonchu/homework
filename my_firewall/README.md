@@ -55,6 +55,7 @@ $ vagrant up --provision
 Python WSGI
 ===========
   * http://www.fullstackpython.com/wsgi-servers.html
+  * https://github.com/pklaus/wsgi-request-logger
 
 ![screen shot](https://github.com/boonchu/puppetlabs/blob/master/my_firewall/hello.png "hello")
 

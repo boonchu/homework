@@ -3,6 +3,6 @@
 def application(environ, start_response):
     """Simplest possible application object"""
     status = '200 OK'
-    response_headers = [('Content-type', 'text/plain')]
+    response_headers = [('Content-type', 'text/html'), ('X-foo', 'bar')]
     start_response(status, response_headers)
-    return ['Hello world!\n']
+    return ['Hello world!<br><img src="/images/wsgi-snake.jpg">\n']
