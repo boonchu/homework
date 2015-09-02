@@ -56,6 +56,8 @@ Python WSGI
 ===========
   * http://www.fullstackpython.com/wsgi-servers.html
   * https://github.com/pklaus/wsgi-request-logger
+  * http://anandology.com/blog/how-to-write-a-web-framework-in-python/
+  * http://pylonsbook.com/en/1.0/the-web-server-gateway-interface-wsgi.html
 
 ![screen shot](https://github.com/boonchu/puppetlabs/blob/master/my_firewall/hello.png "hello")
 

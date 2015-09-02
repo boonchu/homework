@@ -69,15 +69,9 @@ class application(wsgiapp):
    """
    
    urls = [
-        ("/(.*)", "hello"),
+        ("/(.*)", "index"),
    ]
 
    def GET_hello(self, name):
         self.header("Content-Type", "text/plain")
         return "Hello, %s!" % name
-    
-   def GET_index(self):
-        status = '200 OK'
-        response_headers = [('Content-type', 'text/plain')]
-        self.start(status, response_headers)
-        yield "Welcome!\n"
