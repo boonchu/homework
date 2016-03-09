@@ -18,6 +18,7 @@ config.vm.network :public_network, :bridge => $network_interface_to_use, :ip => 
 
 Hiera
 =====
+ * https://docs.puppetlabs.com/hiera/1/complete_example.html
 
 ```
 master ● ● λ tree hiera

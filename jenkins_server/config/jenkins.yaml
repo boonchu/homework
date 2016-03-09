@@ -1,0 +1,17 @@
+---
+defaults: &defaults
+  memory: 512
+  cpus: 1
+  box: centos7-puppet3.8.1
+jenkins-server:
+  <<: *defaults
+  memory: 2048
+  cpus: 4
+  hostname: jenkins-server.vagrant.local
+  puppet:
+    facts:
+      role: jenkins
+  box: centos7-puppet3.8.1
+  private_networks:
+    - 10.20.30.4
+  environment: vagrant

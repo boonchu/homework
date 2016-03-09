@@ -1,0 +1,132 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+['dotenv', 'deep_merge', 'vagrant-digitalocean', 'vagrant-serverspec'].each do |plugin|
+  system("vagrant plugin install #{plugin}") unless Vagrant.has_plugin?(plugin)
+end
+
+begin
+  Dotenv.load
+rescue => e
+  puts 'problem loading dotenv'
+  puts e
+  exit 1
+end
+
+begin
+  require 'deep_merge'
+rescue => e
+  puts 'problem loading deep_merge'
+  puts e
+  exit 1
+end
+
+require 'yaml'
+require 'pathname'
+require 'fileutils'
+
+DIR = Pathname.new(__FILE__).dirname
+
+VM_BOXES = {
+  :centos => 'centos7-puppet3.8.1',
+}
+
+module Vagrant
+  class Configure
+    require 'yaml'
+    attr_reader :defaults
+    attr_accessor :configure
+
+    def initialize
+      @servers = {}
+      @defaults = defaults
+      @configure = 'base'
+    end
+
+    def defaults
+      @defaults ||= {
+        'memory' => ENV['memory'] || 512,
+        'cpus'   => ENV['cpus'] || 1,
+        'puppet' => {
+          'facts'  => {
+            'role' => ENV['role'] || 'base',
+          },
+        },
+        'hostname' => ENV['hostname'] || 'vagrant',
+        'box'      => ENV['box'].nil? ? VM_BOXES[:ubuntu] : VM_BOXES[ENV['box'].to_sym],
+      }
+    end
+
+    def servers
+      @servers.delete_if {|k, v| k == 'defaults' }
+    end
+
+    def add_server(server, config = {})
+      @servers[server] = config.deep_merge(defaults)
+      puts "overwritten the defaults ", @servers[server]
+    end
+
+    def load_config(configure)
+      @configure = ENV['configure'] || 'defaults'
+      config_dir = ENV['config_dir'] || "#{DIR}/config"
+      config_file = "#{config_dir}/#{@configure}.yaml"
+
+      begin
+        yaml = YAML::load_file(config_file)
+        yaml.each { |server, config| add_server(server, config) }
+      rescue => e
+        puts e.message
+      end
+    end
+  end
+end
+
+## Load up a pre-defined Stack for development
+@config = Vagrant::Configure.new
+# - To Do - Assigned name should be passing from input argument or .env
+@config.load_config(ENV['jenkins-server'])
+@config.servers.each { |node, configure| puts "#{node} #{@configure}" }
+
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.require_version ">= 1.8.1"
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |vagrant|
+
+  @config.servers.each do |node, config|
+
+    vagrant.vm.define node do |node|
+        # Using Puppet Labs official vagrant boxes, from: https://vagrantcloud.com/puppetlabs
+        node.vm.box = config['box']
+        node.vm.hostname = "#{config['hostname']}"
+        node.vm.provision :shell, :path => "./.vagrant_puppet/init.sh"
+        node.vm.provider 'virtualbox' do |virtualbox|
+            virtualbox.memory = config['memory'].to_i
+            virtualbox.cpus = config['cpus'].to_i
+        end
+        if config.has_key?('private_networks')
+            config['private_networks'].each do |nic|
+                node.vm.network 'private_network', ip: nic
+            end
+        end
+        node.vm.provision :puppet do |puppet|
+            puppet.environment_path = '.vagrant_puppet/environments'
+            puppet.environment = "#{config['environment']}"
+            puppet.options = "--verbose --parser future"
+            puppet.hiera_config_path = '.vagrant_puppet/environments/hiera.yaml'
+            # --To Do -- These facts should be dynamic loading 
+            # #{config['puppet']['facts'].collect { |k,v| "export FACTER_#{k}=#{v}"}.join("\n")}
+            puppet.facter = {
+                "vagrant" => "1",
+                "server"  => "#{config['hostname']}",
+                "role"    => "#{config['puppet']['facts']['role']}",
+            }
+        end
+
+        node.vm.provision :serverspec do |spec|
+            spec.pattern = 'serverspec/spec/*_spec.rb'
+        end
+    end
+
+  end
+
+end
