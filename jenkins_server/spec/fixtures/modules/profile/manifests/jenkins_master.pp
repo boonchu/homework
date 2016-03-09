@@ -50,7 +50,7 @@ class profile::jenkins_master {
 
   class { '::jenkins_job_builder':
     version             => 'latest',
-    manage_dependencies => false,
+    #manage_dependencies => false,
   }
   # Sad hack because Class['jenkins_job_builder'] does not contain resources properly
   # Do not do this at home. Ever. Please.
@@ -67,7 +67,7 @@ class profile::jenkins_master {
       source   => $_config_repo,
       provider => 'git',
       require  => Class['::jenkins_job_builder'],
-      notify   => Exec['bootstrap-jenkins-jobs'],
+      #notify   => Exec['bootstrap-jenkins-jobs'],
     }
     exec { 'bootstrap-jenkins-jobs':
       command     => $_update_jenkins_jobs_cmd,

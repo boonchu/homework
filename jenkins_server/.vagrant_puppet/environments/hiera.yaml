@@ -4,6 +4,7 @@
 
 :hierarchy:
   - "nodes/%{::fqdn}"
+  - "role/%{::role}"
 
 :yaml:
   :datadir: "/tmp/vagrant-puppet/environments/%{environment}/hieradata"

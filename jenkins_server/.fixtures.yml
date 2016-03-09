@@ -4,6 +4,14 @@ fixtures:
   repositories:
     stdlib: 'git://github.com/puppetlabs/puppetlabs-stdlib'
     jenkins: 'https://github.com/jenkinsci/puppet-jenkins.git'
+    jenkins_job_builder: 'https://github.com/voxpupuli/puppet-jenkins_job_builder.git'
+    java: 'https://github.com/puppetlabs/puppetlabs-java'
+    zypprepo: 'https://github.com/deadpoint/puppet-zypprepo.git'
+    archive: 'https://github.com/voxpupuli/puppet-archive.git'
+    python: 'https://github.com/stankevich/puppet-python.git'
+    epel: 'https://github.com/stahnma/puppet-module-epel.git'
+    inifile: 'https://github.com/puppetlabs/puppetlabs-inifile.git'
+    vcsrepo: 'https://github.com/puppetlabs/puppetlabs-vcsrepo.git'
   symlinks:
     jenkins_server/files: '../../../../files'
     jenkins_server/manifests: '../../../../manifests'
