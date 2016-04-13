@@ -17,4 +17,11 @@ class class_me (
 
   include ntp
 
+  class { 'class_me::configure':
+    messages => [ 
+        'boonchu',
+        'faye',
+    ],
+  }
+
 }
