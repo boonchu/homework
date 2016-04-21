@@ -22,6 +22,9 @@ exec {"hello_boonchu2":
 #    provider => gem,
 #}
 
+# http://stackoverflow.com/questions/27711205/order-of-resources-in-a-class-using-ensure-packages
+# https://docs.puppet.com/puppet/latest/reference/lang_relationships.html
+
 class test {
     ensure_resource ( 'file', '/tmp/foo', { 'ensure' => 'present', 'content' => "bar\n"} )
 }
