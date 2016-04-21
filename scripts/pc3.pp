@@ -15,9 +15,15 @@ exec {"hello_boonchu2":
 } 
 
 # https://tickets.puppetlabs.com/browse/PUP-1073
-package {'vim': }
+#package {'vim': }
+#
+#package {'gem-vim': 
+#    name => 'vim',
+#    provider => gem,
+#}
 
-package {'gem-vim': 
-    name => 'vim',
-    provider => gem,
+class test {
+    ensure_resource ( 'file', '/tmp/foo', { 'ensure' => 'present', 'content' => "bar\n"} )
 }
+
+include test
